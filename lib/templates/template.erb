@@ -1,0 +1,29 @@
+<div>
+  <h2><%= formatted_date %></h2>
+  <% results.each do |address| %>
+    <% address_data = address.values[0] %>
+    <h3><a href=<%= address_data[:dob_url] %>> <%= address_data[:name] %> </a></h3>
+      <% if address_data[:complaints] %>
+        <div>
+          <ul>
+            <li>Complaints within last 3 days?: <%= address_data[:complaints][0]["has_recent_complaints"] ? "Yes" : "No" %> </li>
+            <% if address_data[:total_and_open_complaints] %>
+              <li>Open Complaints: <%= address_data[:total_and_open_complaints][:open] %></li>
+              <li>Total Complaints: <%= address_data[:total_and_open_complaints][:total] %></li>
+            <% end %>
+            <% if address_data[:has_stop_work_order] %>
+              <li>Stop work orders: <span style ='background-color: pink;'><%= address_data[:stop_work_order_td_content] %></span></li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <div>
+          <ul>
+            <li>Complaints within last 3 days?: None</li>
+            <li>Open Complaints: 0</li>
+            <li>Total Complaints: 0</li>
+          </ul>
+        </div>
+      <% end %>
+  <% end %>
+</div>
